@@ -7,7 +7,7 @@ import ntpath
 from json import JSONEncoder
 import json
 import librosa
-from harmonic_mix.tivlib import TIV, TIVCollection
+from tivlib import TIV, TIVCollection
 from essentia.standard import LogSpectrum, MonoLoader, Windowing, Spectrum, SpectralPeaks, FrameGenerator, HighPass, NNLSChroma #, HPCP
 
 
@@ -95,7 +95,7 @@ def analyze_song (song_path):
   #0) Checks if the file exists
   #1) Loads the song with MonoLoader (essentia)
   #2) Cuts the song
-  #3) Retrives percusive part applying source separation (librosa)
+  #3) Retrieves the percussive part by applying source separation (librosa)
   #4) Computes NNLS chroma (essentia)
   #5) Computes TIV (tivlib)
   #6) Saves results
