@@ -7,7 +7,7 @@ import ntpath
 from json import JSONEncoder
 import json
 import librosa
-from tivlib import TIV, TIVCollection
+from harmonic_mix.tivlib import TIV, TIVCollection
 from essentia.standard import LogSpectrum, MonoLoader, Windowing, Spectrum, SpectralPeaks, FrameGenerator, HighPass, NNLSChroma #, HPCP
 
 
