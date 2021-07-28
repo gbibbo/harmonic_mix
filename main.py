@@ -146,7 +146,8 @@ def compare_songs(current_song_path, candidate_song_path, transpose_candidate=0)
   pitch_shift, min_small_scale_comp = TIV_current.get_max_compatibility(TIV_candidate)
   min_small_scale_comp = 100 * (1 - np.mean(min_small_scale_comp))
 
-  return scale(harmonic_compatibility), pitch_shift, scale(min_small_scale_comp)
+  #return scale(harmonic_compatibility), pitch_shift, scale(min_small_scale_comp)
+  return harmonic_compatibility, pitch_shift, min_small_scale_comp
 
 def scale(not_scaled_number):
   #Harmonic compatibility values range from 70% to 100%
