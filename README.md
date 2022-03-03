@@ -3,6 +3,13 @@
 
 # Towards a new compatibility measure for harmonic EDM mixing
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build
+status](https://travis-ci.org/pmcharrison/hrep.svg?branch=master)](https://travis-ci.org/pmcharrison/hrep)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/pmcharrison/hrep?branch=master&svg=true)](https://ci.appveyor.com/project/pmcharrison/hrep)
+[![Coverage
+status](https://coveralls.io/repos/github/pmcharrison/hrep/badge.svg)](https://coveralls.io/r/pmcharrison/hrep?branch=master)
 [![DOI](https://zenodo.org/record/5554688#.YiAG94MzZNh)](https://zenodo.org/record/5554688#.YiAG94MzZNh)
 
 The *harmonic_mix* package can estimate the harmonic 
