@@ -10,7 +10,7 @@ status](https://travis-ci.org/pmcharrison/hrep.svg?branch=master)](https://travi
 status](https://ci.appveyor.com/api/projects/status/github/pmcharrison/hrep?branch=master&svg=true)](https://ci.appveyor.com/project/pmcharrison/hrep)
 [![Coverage
 status](https://coveralls.io/repos/github/pmcharrison/hrep/badge.svg)](https://coveralls.io/r/pmcharrison/hrep?branch=master)
-[![DOI](https://zenodo.org/record/5554688#.YiAG94MzZNh)](https://zenodo.org/record/5554688#.YiAG94MzZNh)
+[![DOI](https://zenodo.org/record/5554688#.YiAG94MzZNh)](https://doi.org/10.5281/zenodo.2545770)
 
 The *harmonic_mix* package can estimate the harmonic 
 compatibility (HC) between digital music recordings, 
