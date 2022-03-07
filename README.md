@@ -97,16 +97,3 @@ print("Resulting harmonic compatibility (after pitch shifting): ",
       round(min_small_scale_comp, 2), "%")
 ...
 ```
-as.integer(encode(pc_chord(x)))
-#> [1] 8210
-```
-
-Similarly, the following code expresses the chord as a pitch-class set,
-and then encodes the pitch-class set as an integer.
-
-``` r
-pc_set(x)
-#> Pitch-class set: 0 4 7
-as.integer(encode(pc_set(x)))
-#> [1] 145
-```
