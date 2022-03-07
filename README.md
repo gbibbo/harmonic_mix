@@ -29,6 +29,8 @@ You can either use the graphical interface or use the functions defined in main.
 
 To open it, you must run tkinter_GUI.py. The graphical interface allows you to load audio tracks in .mp3 format contained in a folder. Then you analyze them (which takes about 4 minutes per track) and you're all set! The values have been saved in an "annotations" folder, so you won't have to re-analyze your songs the next time you use the program. Now all you have to do is select the target track for which you want to find a harmonically compatible candidate track. Double-click on the target track and three columns of values will be displayed on the right. HC(%) is the harmonic compatibility between the target track and each of the other tracks in the folder, all in their original versions. T(st) is the suggested pitch transposition interval (in semitones) that would maximize harmonic compatibility. THC(%) is the resulting harmonic compatibility if the suggested pitch transposition were applied. You can change the target track and the column values will be updated.
 
+![Image with the algorithm tree](media/gui.png)
+
 ### Code (main.py)
 
 This module contains two functions with which you can calculate the harmonic compatibility between tracks and in all possible pitch transpositions.
