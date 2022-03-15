@@ -35,20 +35,22 @@ To open it, you must run tkinter_GUI.py. The graphical interface allows you to l
 
 This module contains two functions with which you can calculate the harmonic compatibility between tracks and in all possible pitch transpositions.
 
-
+```python
+...
 analyze_song (song_path):
+        """
+        Computes the TIV from a given song (path)
+            0) Checks if the file exists
+            1) Loads the song with MonoLoader (essentia)
+            2) Cuts the song
+            3) Retrives percusive part applying source separation (librosa)
+            4) Computes NNLS chroma (essentia)
+            5) Computes TIV (tivlib)
+            6) Saves results
 
-Computes the TIV from a given song (path)
-    0) Checks if the file exists
-    1) Loads the song with MonoLoader (essentia)
-    2) Cuts the song
-    3) Retrives percusive part applying source separation (librosa)
-    4) Computes NNLS chroma (essentia)
-    5) Computes TIV (tivlib)
-    6) Saves results
-
-Takes as input
-The path of the track you want to analyze
+        :param song_path: The path of the track you want to analyze
+...
+```
 
 compare_songs(current_song_path, candidate_song_path, transpose_candidate=0):
 
@@ -77,7 +79,7 @@ import json
 import librosa
 import numpy as np
 from essentia.standard import LogSpectrum, MonoLoader, Windowing, \
-  Spectrum, FrameGenerator, NNLSChroma #, HPCP
+  Spectrum, FrameGenerator, NNLSChroma
 from harmonic_mix.tivlib import TIV
 
 genre = 'progressive_house/'
@@ -89,7 +91,7 @@ analyze_song(current_song_path)
 analyze_song(candidate_song_path)
 harmonic_compatibility, pitch_shift, min_small_scale_comp = \
     compare_songs(current_song_path, candidate_song_path,1)
-pitch_shift_sign = ""
+pitch_shift_sign = " "
 if pitch_shift > 0:
     pitch_shift_sign = "+"
 
