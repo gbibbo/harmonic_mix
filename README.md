@@ -36,7 +36,6 @@ To open it, you must run tkinter_GUI.py. The graphical interface allows you to l
 This module contains two functions with which you can calculate the harmonic compatibility between tracks and in all possible pitch transpositions.
 
 ```python
-...
 analyze_song (song_path):
         """
         Computes the TIV from a given song (path)
@@ -50,7 +49,6 @@ analyze_song (song_path):
 
         :param song_path: The path of the track you want to analyze
         """
-...
 ```
 
 compare_songs(current_song_path, candidate_song_path, transpose_candidate=0):
