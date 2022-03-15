@@ -1,3 +1,10 @@
+# Copyright (c) 2021 Gabriel Bibbó, Music Technology Grup, University Pompeu Fabra
+# This is an open-access library distributed under the terms of the Creative Commons Attribution 3.0 Unported License, which permits unrestricted use, distribution, and reproduction in any medium, provided the
+# original author and source are credited.
+# Released under MIT License.
+
+"""This module is responsible for creating the graphical interface and navigation functions."""
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
@@ -10,8 +17,10 @@ from main import compare_songs, analyze_song
 
 folderpath = ''  # <---container
 
-# this is the function called when the button is clicked
+# this is the function called when the "Music Folder" button is clicked
 def music_button():
+	""" Display the file path finder to select the music folder."""
+	
 	global folderpath
 	folderpath = fd.askdirectory()
 	text1.configure(text=folderpath[0:75])
@@ -31,7 +40,17 @@ def music_button():
 
 	print(folderpath)
 
+# this is the function called when a song is double-clicked
 def main_song_selected(event):
+	"""When a song is double-clicked:
+	1) From the index of the selected song row, the name of the song within the music folder is searched.
+	2) The name of the song is displayed in the interface.
+	3) The path to the music folder, annotations folder and audio track is defined.
+	4) If there is no annotation folder, an error message is displayed.
+	5) The annotation directory is walked through and, for each track, the harmonic compatibility with 
+	respect to the main track is calculated and the values are displayed in the graphical interface.
+	"""
+	
 	print(e.index(e.focus()))
 	global folderpath
 	row = 0
@@ -68,8 +87,10 @@ def main_song_selected(event):
 		text4.configure(text="")
 		return
 
-# this is the function called when the button is clicked
+# this is the function called when the "Analyze" button is clicked
 def analyze_button():
+	"""Analyzes the audio tracks contained in the previously defined music folder."""
+	
 	text3.configure(text="Analyzing...")
 	text4.configure(text="")
 	global folderpath
