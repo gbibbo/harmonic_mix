@@ -51,21 +51,22 @@ analyze_song (song_path):
         """
 ```
 
+```python
 compare_songs(current_song_path, candidate_song_path, transpose_candidate=0):
-
-Computes harmonic compatibility between two given songs (paths). Also suggests the amount of pitch shift transpisition to maximize the harmonic compatibility
-
-Takes as input:
-current_song_path=The path of the target track
-candidate_song_path=The path of the candidate track
-transpose_candidate=An interval (in positive or negative semitones) with which the pitch transposition of the candidate track will be simulated.
-
-Returns as output:
-
-HC(%)=The harmonic compatibility between the target track and each of the other tracks in the folder, all in their original versions. 
-T(st)=The suggested pitch transposition interval (in semitones) that would maximize harmonic compatibility. 
-THC(%)=The resulting harmonic compatibility if the suggested pitch transposition were applied.
-
+        """
+        Computes harmonic compatibility between two given songs (paths). 
+        Also suggests the amount of pitch shift transpisition to maximize 
+        the harmonic compatibility.
+        
+        :param current_song_path: The path of the target track
+        :param candidate_song_path: The path of the candidate track
+        :param transpose_candidate: An interval (in positive or negative semitones) with which the 
+                pitch transposition of the candidate track will be simulated. Default zero.
+        :return: The harmonic compatibility between the target track and each of the other tracks in the folder, all in their original versions. 
+                The suggested pitch transposition interval (in semitones) that would maximize harmonic compatibility. 
+                The resulting harmonic compatibility if the suggested pitch transposition were applied.
+        """
+```
 
 ### Example
 ```python
