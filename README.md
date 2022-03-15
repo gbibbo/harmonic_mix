@@ -31,7 +31,7 @@ This repository needs:
 
 ## How to use it
 
-You can either use the graphical interface or use the functions defined in main.py.
+After installing the packages, you can either use the graphical interface or use the functions defined in main.py.
 
 ### Graphical User Interface (tkinter_GUI.py)
 
