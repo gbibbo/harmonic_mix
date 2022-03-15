@@ -5,6 +5,9 @@
 
 This repository contains the code used for my Master Thesis [Towards a new compatibility measure for harmonic EDM mixing](https://zenodo.org/record/5554688#.YiaRT4MzZNh).
 
+### Harmonic compatibility definition
+The harmonic compatibility score is the degree of consonance generated when two pieces of music are blended. A high score is usually perceived as pleasant, stable, and positively valenced.
+
 DJ track selection can benefit from software-generated recommendations that optimise harmonic transitions. Emerging techniques (such as Tonal Interval Vectors) permit the definition of new metrics for harmonic compatibility (HC) estimation that improve the performance of existing applications. Thus, the aim of this study is to provide the DJ with a new tool to improve his/her musical selections. We present a software package that can estimate the HC between digital music recordings, with a particular focus on modern dance music and the workflow of the DJ. The user must define a target track for which the calculation is to be made, and obtains the HC values with respect to each track in the music collection, expressed as a percentage. The system also calculates a pitch transposition interval for each candidate track that, if applied, maximizes the HC with respect to the target track. Its graphical user interface allows the user to easily run it in parallel to the DJ software of choice during live performances. The system, tested with musically experienced users, generates pitch transposition suggestions that improve mixes in 73.7% of cases.
 
 ## Algorithm workflow
