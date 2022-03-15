@@ -90,7 +90,7 @@ candidate_song_path = "harmonic_mix/music/" + genre + candidate_song + ".mp3"
 analyze_song(current_song_path)
 analyze_song(candidate_song_path)
 harmonic_compatibility, pitch_shift, min_small_scale_comp = \
-    compare_songs(current_song_path, candidate_song_path,1)
+    compare_songs(current_song_path, candidate_song_path,1) #Compares original version of current song with one semitone pitch shifted version of the candidate song.
 pitch_shift_sign = " "
 if pitch_shift > 0:
     pitch_shift_sign = "+"
