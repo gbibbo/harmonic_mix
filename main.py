@@ -1,4 +1,8 @@
-#Gabriel Bibbó, 2021
+# Copyright (c) 2021 Gabriel Bibbó, Music Technology Grup, University Pompeu Fabra
+# This is an open-access library distributed under the terms of the Creative Commons Attribution 3.0 Unported License, which permits unrestricted use, distribution, and reproduction in any medium, provided the
+# original author and source are credited.
+# Released under MIT License.
+
 """This module is responsible for loading the audio tracks,
 analyzing and comparing them, in order to calculate their
 harmonic compatibility."""
@@ -11,7 +15,7 @@ import json
 import librosa
 import numpy as np
 from essentia.standard import LogSpectrum, MonoLoader, Windowing, \
-  Spectrum, FrameGenerator, NNLSChroma #, HPCP
+  Spectrum, FrameGenerator, NNLSChroma
 from harmonic_mix.tivlib import TIV
 
 SONG_KEPT = 0.3  # percentage of the song to compare
@@ -20,7 +24,11 @@ SR = 44100  # Sample rate
 
 def decompose_harmonic(audio):
     """Given the audio of a loop, applies source separation
-    from librosa to extract only the harmonic part"""
+    from librosa to extract only the harmonic part
+
+    :param audio: Audio sample arrangement (1xn)
+    :return: Arrangement of the harmonic part of the audio samples (1xn)
+    """
 
     decomposed = librosa.stft(audio)
     decomposed_harmonic, decomposed_percussive = \
@@ -30,7 +38,11 @@ def decompose_harmonic(audio):
     return harmonic_part
 
 def audio_to_nnls(audio):
-    """Computes the chroma from the audio"""
+    """Computes the NNNLS chroma from the audio
+
+    :param audio: Audio sample arrangement
+    :return: A 12-dimensional chromagram (1x12), the result of averaging the chroma of each frame.
+    """
     frame_size = 8192 + 1
 
     window = Windowing(type='hann', normalized=False)
@@ -55,7 +67,11 @@ def audio_to_nnls(audio):
     return mean_chroma
 
 def save_tiv (annotation_path,TIV):
-    """Saves the vector and energy values of the TIV in a .json file"""
+    """Saves the vector and energy values of the TIV in a .json file
+
+    :param annotation_path: Path where the annotation .json file is saved
+    :param TIV: TIV instance with the values corresponding to the track analysis.
+    """
 
     class NumpyArrayEncoder(JSONEncoder):
         """Creates a NumPy array, and saving it as context variable"""
@@ -76,7 +92,11 @@ def save_tiv (annotation_path,TIV):
         json.dump(TIV_string, write_file, cls=NumpyArrayEncoder)
 
 def load_tiv (annotation_path):
-    """Loads the vector and energy values of the TIV from a given .json file"""
+    """Loads the vector and energy values of the TIV from a given .json file
+
+    :param annotation_path: Annotation path to automatically generated .json file.
+    :return: TIV instance (defined in tivlib.py) with the value of the track-specific vectors and energy.
+    """
 
     chroma_ref = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     tiv = TIV.from_pcp(chroma_ref)
@@ -95,14 +115,18 @@ def load_tiv (annotation_path):
 
 
 def analyze_song (song_path):
-    """Computes the TIV from a given song (path)
-    0) Checks if the file exists
-    1) Loads the song with MonoLoader (essentia)
-    2) Cuts the song
-    3) Retrives percusive part applying source separation (librosa)
-    4) Computes NNLS chroma (essentia)
-    5) Computes TIV (tivlib)
-    6) Saves results"""
+    """
+    Computes the TIV from a given song (path)
+        0) Checks if the file exists
+        1) Loads the song with MonoLoader (essentia)
+        2) Cuts the song
+        3) Retrives percusive part applying source separation (librosa)
+        4) Computes NNLS chroma (essentia)
+        5) Computes TIV (tivlib)
+        6) Saves results
+
+    :param song_path: The path of the track you want to analyze
+    """
 
     folder_path, song_name = ntpath.split(song_path)
 
@@ -130,8 +154,19 @@ def analyze_song (song_path):
 
 
 def compare_songs(current_song_path, candidate_song_path, transpose_candidate=0):
-    """Computes harmonic compatibility between two given songs (paths). Also suggests
-    the amount of pitch shift transpisition to maximize the harmonic compatibility"""
+    """
+    Computes harmonic compatibility between two given songs (paths).
+    Also suggests the amount of pitch shift transpisition to maximize
+    the harmonic compatibility.
+
+    :param current_song_path: The path of the target track
+    :param candidate_song_path: The path of the candidate track
+    :param transpose_candidate: An interval (in positive or negative semitones) with which the
+            pitch transposition of the candidate track will be simulated. Default zero.
+    :return: The harmonic compatibility between the target track and each of the other tracks in the folder, all in their original versions.
+            The suggested pitch transposition interval (in semitones) that would maximize harmonic compatibility.
+            The resulting harmonic compatibility if the suggested pitch transposition were applied.
+    """
 
     current_folder_path, current_song_name = ntpath.split(current_song_path)
     candidate_folder_path, candidate_song_name = ntpath.split(candidate_song_path)
@@ -155,7 +190,11 @@ def compare_songs(current_song_path, candidate_song_path, transpose_candidate=0)
 
 def scale(not_scaled_number):
     """Harmonic compatibility values range from 70% to 100%
-    We want to express them between 0% to 100%"""
+    We want to express them between 0% to 100%
+
+    :param not_scaled_number: Real number from 0 to 100.
+    :return: Real number from 70 to 100.
+    """
 
     n_min = 70
     n_max = 100
@@ -163,26 +202,16 @@ def scale(not_scaled_number):
 
 
 if __name__ == '__main__':
-    # @title Select two PROGESSIVE HOUSE songs to compute the hamonic similarity ↓↓↓↓ { run: "auto" }
+
     genre = 'progressive_house/'
-    #genre = 'prueba/'
-    current_song = "Blanka Barbara - Lost in Digital Fog (Original) - 11A - 124"  # @param ["Harley Sanders, Rion S - Awakenings (Paul Thomas & Fuenka Remix) - 1A - 124","Lezcano - Isaac (Ariel Lander Remix) - 1A - 124","Highjacks - Void (Extended Mix) - 2A - 124","Matt Fax - Atlas (Extended Mix) - 2A - 124", "Stan Kolev, Aaron Suiss - Fire Spirit (Original Mix) - 3A - 124", "Tryger - Take Me Home (Original Mix) - 3A - 124", "Naz, Deanna Leigh - Underwater (Extended Mix) - 4A - 124", "York - On The Beach (Kryder Extended Remix) - 4A - 124", "Four3Four - Ligature - 5A - 124", "Phi Phi & Manu Riga - Sharp Intellect - 5A - 124", "Einmusik, Lexer - Second Chance - 6A - 124", "Teklix - The Tribal Code - 6A - 124", "Ismael Rivas - Apocalipse (Original Mix) - 7A - 124", "Panoptic, Paul Anthonee - Surface (2021 Rendition) - 7A - 124", "Lateral Cut Groove - Diamonds - 8A - 124", "Spada feat. Richard Judge - Happy If You Are (Extended Mix) - 8A - 124", "Marius Drescher - Rush (Original Mix) - 9A  - 124", "Matt Fax - Torn (Extended Mix) - 9A - 124", "CHABI, Deejay Ox - Progression - 10A - 124", "Perpetual Universe - Deep Breath (Original Mix) - 10A - 124", "Blanka Barbara - Lost in Digital Fog (Original) - 11A - 124", "Sayman - Cuarentena (Extended Mix) - 11A - 124", "Matt Fax, Viiq - Run Away (Extended Club Mix) - 12A - 124", "Max Graham - Moonchild (Tim Penner Remix) - 12A - 124"]
-    #current_song = "P1 - Oxia - Domino"
-    #current_song = "Harley Sanders, Rion S - Awakenings (Paul Thomas & Fuenka Remix) - 1A - 124"
-    # print('Now playing: ', current_song, '\n')
-
-    candidate_song = "Teklix - The Tribal Code - 6A - 124"  # @param ["Harley Sanders, Rion S - Awakenings (Paul Thomas & Fuenka Remix) - 1A - 124","Lezcano - Isaac (Ariel Lander Remix) - 1A - 124","Highjacks - Void (Extended Mix) - 2A - 124","Matt Fax - Atlas (Extended Mix) - 2A - 124", "Stan Kolev, Aaron Suiss - Fire Spirit (Original Mix) - 3A - 124", "Tryger - Take Me Home (Original Mix) - 3A - 124", "Naz, Deanna Leigh - Underwater (Extended Mix) - 4A - 124", "York - On The Beach (Kryder Extended Remix) - 4A - 124", "Four3Four - Ligature - 5A - 124", "Phi Phi & Manu Riga - Sharp Intellect - 5A - 124", "Einmusik, Lexer - Second Chance - 6A - 124", "Teklix - The Tribal Code - 6A - 124", "Ismael Rivas - Apocalipse (Original Mix) - 7A - 124", "Panoptic, Paul Anthonee - Surface (2021 Rendition) - 7A - 124", "Lateral Cut Groove - Diamonds - 8A - 124", "Spada feat. Richard Judge - Happy If You Are (Extended Mix) - 8A - 124", "Marius Drescher - Rush (Original Mix) - 9A  - 124", "Matt Fax - Torn (Extended Mix) - 9A - 124", "CHABI, Deejay Ox - Progression - 10A - 124", "Perpetual Universe - Deep Breath (Original Mix) - 10A - 124", "Blanka Barbara - Lost in Digital Fog (Original) - 11A - 124", "Sayman - Cuarentena (Extended Mix) - 11A - 124", "Matt Fax, Viiq - Run Away (Extended Club Mix) - 12A - 124", "Max Graham - Moonchild (Tim Penner Remix) - 12A - 124"]
-    #candidate_song = "P2 - Patrice Baumel - Surge (Original mix)"
-    #candidate_song = "Blanka Barbara - Lost in Digital Fog (Original) - 11A - 124"
-    #andidate_song = "Sayman - Cuarentena (Extended Mix) - 11A - 124"
-    # print('Next playing: ', candidate_song)
-
+    current_song = "Blanka Barbara - Lost in Digital Fog (Original) - 11A - 124"
+    candidate_song = "Teklix - The Tribal Code - 6A - 124"
     current_song_path = "harmonic_mix/music/" + genre + current_song + ".mp3"
     candidate_song_path = "harmonic_mix/music/" + genre + candidate_song + ".mp3"
     analyze_song(current_song_path)
     analyze_song(candidate_song_path)
     harmonic_compatibility, pitch_shift, min_small_scale_comp = \
-        compare_songs(current_song_path, candidate_song_path,1)
+        compare_songs(current_song_path, candidate_song_path,1)  #Compares original version of current song with one semitone pitch shifted version of the candidate song.
     pitch_shift_sign = ""
     if pitch_shift > 0:
         pitch_shift_sign = "+"
