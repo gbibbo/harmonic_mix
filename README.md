@@ -19,7 +19,7 @@ perceived as pleasant, stable, and positively valenced. """
 
 The main module of the programme deals with the analysis of audio tracks using Music Information Retrieval techniques. They are first source-separated to remove the percussive elements, with no melodic information. A single chroma vector is computed as the mean of the NNLSChroma from each frame, that then is converted into a Tonal Interval Vector (TIV). The HC is calculated as the measure score between the pairs TIVs of candidate and target track. 
 
-![Image with the algorithm tree](media/workflow.png)
+![Image with the algorithm tree](media/Workflow.png)
 
 ## Requirements
 This repository needs:
